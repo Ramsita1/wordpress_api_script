@@ -1,7 +1,7 @@
 <?php
 
 require 'vendor/autoload.php';
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("C:\Users\abc\Downloads\Google_Bussiness_data.csv");
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file[1]);
 $worksheet = $spreadsheet->getActiveSheet();
 $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVjaG5pbmphLmNvbSIsImlhdCI6MTY4MTQ1MTk3OCwibmJmIjoxNjgxNDUxOTc4LCJleHAiOjE2ODIwNTY3NzgsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.06xmfAtEILuXcBkb_eo_CffW8_2VGG-cqaUD76cjgxI";
 $site_url = "http://techninja.com/";
@@ -23,13 +23,8 @@ foreach ($worksheet->getRowIterator(2) as $row)
     }
     $title = $rowData[0];
     $content = $rowData[1];
-    $Phone = $rowData[2];
-    $image_url = $rowData[3];
+    $image_url = $rowData[2];
 
-    $images = file_get_contents($image_url);
-    file_put_contents("image.jpg", $images);
-
-    $feature = "image.jpg";
     $media_id = get_media($media_url,$feature,$token);
     $result = create_post($title,$content,$media_id,$post_url,$token);
     
